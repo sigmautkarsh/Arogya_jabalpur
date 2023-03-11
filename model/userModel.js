@@ -9,7 +9,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'name must be given '],
         minlength: 2,
-        maxlength: 255
+        maxlength: 255,
+        unique: [true,'name should be unique']
     },
     number: [{
         type: Number,
