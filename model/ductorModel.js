@@ -11,6 +11,18 @@ const ductorSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    images: [
+        {
+            public_id: {
+                type: String,
+                required: true,
+            },
+            url: {
+                type: String,
+                required: true,
+            },
+        },
+    ],
     fees: {
         onlineAppointmentFee: {
             type: Number,
@@ -50,9 +62,9 @@ const ductorSchema = new mongoose.Schema({
         }
 
     },
-    currentStatus:{
-        type:String,
-        enum:['available','unavailable']
+    currentStatus: {
+        type: String,
+        enum: ['available', 'unavailable']
     },
 
 });

@@ -1,0 +1,28 @@
+{
+    "timeLine": [
+        {
+            "Ending_year": "2016",
+            "class": "10th MP Board",
+            "location": "jabalpur",
+            "course": ""
+        },
+        {
+            "Ending_year": "2018",
+            "class": "12th MP Board",
+            "location": "jabalpur",
+            "course": "PCM"
+        },
+        {
+            "Ending_year": "2021",
+            "class": "Model Science College JABALPUR",
+            "location": "jabalpur",
+            "course": "BCA"
+        },
+        {
+            "Ending_year": "2023",
+            "class": "JABALPUR ENGINEERING COLLEGE (JEC",
+            "location": "jabalpur",
+            "course": "MCA"
+        }
+    ]
+}

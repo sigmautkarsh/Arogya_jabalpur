@@ -9,8 +9,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'name must be given '],
         minlength: 2,
-        maxlength: 255,
-        unique: [true,'name should be unique']
+        maxlength: 255
+
     },
     number: [{
         type: Number,
@@ -48,11 +48,11 @@ const userSchema = new mongoose.Schema({
         required: true
     },
 
-    passWord:{
-        type:String,
-        maxLength:12,
-        minLength:4,
-        select:false
+    passWord: {
+        type: String,
+        maxLength: 12,
+        minLength: 4,
+        select: false
     },
     resetPasswordToken: String,
     resetPasswordExpire: Date

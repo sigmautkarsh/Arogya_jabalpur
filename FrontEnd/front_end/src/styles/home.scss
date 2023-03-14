@@ -1,0 +1,116 @@
+#Home {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+
+  >section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &:first-of-type {
+      border-top: 2px solid $color3;
+      display: flex;
+
+      >div {
+        padding: 6rem;
+        height: "100%";
+
+        >h1 {
+          font: 900 4rem $text1;
+        }
+
+        .typewriter {
+          margin: 20px 0;
+          height: 20px;
+          letter-spacing: 3px;
+        }
+
+        .div2 {
+          display: flex;
+          margin-top: 3rem;
+          width: 70%;
+          gap: 5px;
+          align-items: center;
+
+          >a {
+            &:first-of-type {
+              background-color: $color3;
+              color: wheat;
+              //padding: 2.3rem;
+              transition: all 0.3s;
+
+              &:hover {
+                color: $color6_1;
+              }
+
+            }
+
+            &:last-of-type {
+              display: flex;
+              align-items: center;
+              font: 600 1.2rem $color6_1;
+            }
+          }
+        }
+
+        aside {
+          display: flex;
+          width: 70%;
+          justify-content: space-between;
+
+
+        }
+
+        article {
+          margin: 1rem 0;
+          color: $color5;
+          width: 10rem;
+
+          >p {
+            font: 900 2rem $text2;
+          }
+          >span{
+            font: 600 1rem $text1;
+          }
+        }
+      }
+    }
+
+    &:last-of-type {
+      border-top: 1px solid $color6_2;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      overflow-x: hidden;
+
+      &::after {
+        content: "";
+        width: 30vmax;
+        height: 30vmax;
+        background-color: $color3;
+        position: absolute;
+        z-index: -1;
+        border-radius: 50%;
+      }
+
+      >img {
+        width: 40vmax;
+        object-fit: contain;
+        height: 240vmax;
+
+      }
+    }
+  }
+
+  >svg {
+    position: absolute;
+    font-size: 4rem;
+    color: $color5;
+    left: 50%;
+    bottom: 5%;
+    transform: translateX(-50%);
+    animation: animateSvg 0.7s infinite linear alternate;
+  }
+}
