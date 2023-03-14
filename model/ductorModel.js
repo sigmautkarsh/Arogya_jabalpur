@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ductorSchema = new mongoose.Schema({
+const DoctorSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'please enter name '],
@@ -69,7 +69,7 @@ const ductorSchema = new mongoose.Schema({
 
 });
 // Create the Ductor model
-const Ductor = mongoose.model('Ductor', DuctorSchema);
+const Doctor = mongoose.model('Doctor', DoctorSchema);
 
 // Export the model
-module.exports = Ductor;
+module.exports = Doctor;
