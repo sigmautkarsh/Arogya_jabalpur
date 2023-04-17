@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['admain', 'user', 'employees'],
+        enum: ['admin', 'user', 'employees','bloodBankOfficials'],
         default: 'user',
         required: true
     },
@@ -64,7 +64,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         maxLength: 12,
         minLength: 4,
-        select: false
+      //  select: false
     },
     resetPasswordToken: String,
     resetPasswordExpire: Date
@@ -72,13 +72,13 @@ const userSchema = new mongoose.Schema({
 
 });
 /**  password hashing */
-userSchema.pre("save", async function (next) {
+// userSchema.pre("save", async function (next) {
 
-    if (!this.isModified('passWord')) {
-        next()
-    }
-    this.passWord = await bcrypt.hash(this.passWord, 10);
-});
+//     if (!this.isModified('passWord')) {
+//         next()
+//     }
+//     this.passWord = await bcrypt.hash(this.passWord, 10);
+// });
 
 
 // createing jwt token for user authontication 

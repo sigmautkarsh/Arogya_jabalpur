@@ -5,6 +5,10 @@ const AppointmetSchema = new mongoose.Schema({
         type :Date,
         required:[true ,'enter appointment date']
     },
+    time:{
+        type :String,
+        required :[true, 'enter appointment time']
+    },
     mode_of_appointment :{
         type :String,
         required:[true,'mode is required '],
