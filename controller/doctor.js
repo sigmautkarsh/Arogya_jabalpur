@@ -1,8 +1,7 @@
 const Doctor = require('../model/ductorModel');
 const ErrorHandler = require('../util/errorHandler');
-const catchAsyncErr = require('../middleware/chatchAsyncError');
+const chatchAsyncErr = require('../middleware/chatchAsyncError');
 const sendToken = require('../util/jwtToken');
-const chatchAsyncError = require('../middleware/chatchAsyncError');
 /**make userController 
  * 1. register doctors
  * 2. update information
@@ -11,8 +10,9 @@ const chatchAsyncError = require('../middleware/chatchAsyncError');
  * 5. delete account 
  */
 
-exports.RegisterDoctor = catchAsyncErr(async (req, res, next) => {
-    const { name,number,email,password,registerationNumber,address, specialization ,fees ,availability } = req.body;
+exports.RegisterDoctor = chatchAsyncErr(async (req, res, next) => {
+    const { name,number,email,password,registerationNumber,address, specialization ,fees ,availability ,images } = req.body;
+    console.log(req.body)
     const doctor = await (Doctor.create({
         name,
         number,
@@ -24,15 +24,15 @@ exports.RegisterDoctor = catchAsyncErr(async (req, res, next) => {
         fees ,
         availability,
         images: {
-            public_id: "sample id ",
-            url: "profile url"
+            public_id:images.public_id??"sample public id",
+            url: images.url??"profile url"
         }
     }));
     sendToken(doctor, 201, res);
 });
 
 /**Login  */
-exports.Login = catchAsyncErr(async (req, res, next) => {
+exports.Login = chatchAsyncErr(async (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password) {
         return next(new ErrorHandler("Enter email id and password", 400));
@@ -61,7 +61,7 @@ exports.Login = catchAsyncErr(async (req, res, next) => {
 });
 
 /**Logout */
-exports.Logout = chatchAsyncError(async (req, res, next) => {
+exports.Logout = chatchAsyncErr(async (req, res, next) => {
     res.cookie("token", null, {
         //expires: new Date(Date.now()),
         httpOnly: true,
@@ -73,7 +73,7 @@ exports.Logout = chatchAsyncError(async (req, res, next) => {
     });
 });
 /**get all Doctors */
-exports.getAllDoctor = chatchAsyncError(async (req, res, next) => {
+exports.getAllDoctor = chatchAsyncErr(async (req, res, next) => {
     const doctor = await Doctor.find();
     const doctorCount = doctor.length
     res.status(200).json({
@@ -84,16 +84,16 @@ exports.getAllDoctor = chatchAsyncError(async (req, res, next) => {
     });
 });
 /**update profile doctor */
-exports.updateProfile = chatchAsyncError(async (req,res,next)=>{
+exports.updateProfile = chatchAsyncErr(async (req,res,next)=>{
 })
 /**Delete Account  by--Admin*/
-exports.deleteDoctor = chatchAsyncError(async (req, res, next) => {
+exports.deleteDoctor = chatchAsyncErr(async (req, res, next) => {
     const doctor = await Doctor.findById(req.params.id);
     if (!doctor) {
         return next(new ErrorHandler(`User does not Exist with Id:${req.params.id}`, 400));
     }
     /**delete image from cloudinaary */
-    await Doctor.findByIdAndDelete(user._id)
+    await Doctor.findByIdAndDelete(doctor._id)
 
     res.status(200).json({
         success: true,
@@ -101,7 +101,7 @@ exports.deleteDoctor = chatchAsyncError(async (req, res, next) => {
     });
 });
 /**get single User by--Admin */
-exports.getSingelDoctor = chatchAsyncError(async (req, res, next) => {
+exports.getSingelDoctor = chatchAsyncErr(async (req, res, next) => {
     const doctor = await Doctor.findById(req.params.id);
 
     if (!doctor) {
@@ -114,7 +114,7 @@ exports.getSingelDoctor = chatchAsyncError(async (req, res, next) => {
 });
 
 /**Update doctors status --Admin*/
-exports.updateDoctorStatus = chatchAsyncError(async (req, res, next) => {
+exports.updateDoctorStatus = chatchAsyncErr(async (req, res, next) => {
     const newUserData = {
         // name: req.body.name,
         // emailId: req.body.emailId,

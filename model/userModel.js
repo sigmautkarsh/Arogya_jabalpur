@@ -18,30 +18,19 @@ const userSchema = new mongoose.Schema({
         maxLength: 1,
         required: [true, ' phone number is needed ']
     }],
-    emailId: {
+    email: {
         type: String,
         unique: true,
         required: [true, 'email is needed please enter valid email '],
         validate: [validator.isEmail, "enter valid emailId"]
     },
-    bloodGroup: {
+    bloodgroup: {
         type: String,
         enum: ['O+', 'O-', 'A-', 'A+', 'B-', 'B+', 'AB+', 'AB-'],
     },
-    Address: {
-        city: {
-            type: String,
-            default: "JABALPUR",
-        },
-        Pincode: {
-            type: Number,
-        },
-        Area: {
-            type: String
-        },
-        Street: {
-            type: String
-        }
+    address: {
+        type :String,
+        required:[true,'address required']
     },
     role: {
         type: String,
@@ -60,7 +49,7 @@ const userSchema = new mongoose.Schema({
         }
     },
 
-    passWord: {
+    password: {
         type: String,
         maxLength: 12,
         minLength: 4,

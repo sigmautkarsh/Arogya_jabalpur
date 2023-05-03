@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-
+const validator = require('validator');
+const jwt = require("jsonwebtoken");
 const DoctorSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -9,7 +10,9 @@ const DoctorSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: [true, 'enter email']
+        unique: true,
+        required: [true, 'enter email hey'],
+        validate: [validator.isEmail, "enter valid emailId"]
     },
     number: {
         type: Number,
@@ -17,13 +20,12 @@ const DoctorSchema = new mongoose.Schema({
     },
     registerationNumber: {
         type: String,
-        required: [true, 'registeration number of doctor is required']
+        unique: true,
+        required: [true, 'registeration number of doctor is required'],
+        
     },
     address: {
         type: String,
-    },
-    password: {
-
     },
     specialization: {
         type: String,
@@ -63,13 +65,18 @@ const DoctorSchema = new mongoose.Schema({
         }
 
     },
+    role:{
+        type:String,
+        default:"doctor"
+    },
     currentStatus: {
         type: String,
-        enum: ['available', 'unavailable']
+        enum: ['available', 'unavailable'],
+        default:'unavailable'
     },
     applicationStatus: {
         type: String,
-        enum: ['approved', 'rejected', 'waiting'],
+        enum: ['approved', 'blocked', 'waiting'],
         default: "waiting"
     },
     password: {
@@ -85,7 +92,7 @@ const DoctorSchema = new mongoose.Schema({
 });
 DoctorSchema.methods.getJWTToken = function () {
    // console.log('jwt token ')
-    return JWT.sign({ id: this._id, }, process.env.JWT_SECRET || "beke eiukje udknlerhekwl");
+    return jwt.sign({ id: this._id, }, process.env.JWT_SECRET || "beke eiukje udknlerhekwl");
 };
 
 // Create the Ductor model

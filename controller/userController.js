@@ -3,6 +3,7 @@ const ErrorHandler = require('../util/errorHandler');
 const catchAsyncErr = require('../middleware/chatchAsyncError');
 const sendToken = require('../util/jwtToken');
 const chatchAsyncError = require('../middleware/chatchAsyncError');
+const Doctor = require('../model/ductorModel');
 /**make userController 
  * 1. register user 
  * 2. update information
@@ -12,17 +13,17 @@ const chatchAsyncError = require('../middleware/chatchAsyncError');
  */
 
 exports.RegisterUser = catchAsyncErr(async (req, res, next) => {
-    const { name, emailId, number, passWord, bloodGroup, Address } = req.body;
+    const { name, email, number, password, bloodGroup, address ,avtar } = req.body;
     const user = await (User.create({
         name,
         number,
-        emailId,
-        passWord,
+        email,
+        password,
         bloodGroup,
-        Address,
+        address,
         avtar: {
-            public_id: "sample id ",
-            url: "profile url"
+            public_id: avtar.public_id ?? "sample id ",
+            url: avtar.url ?? "profile url"
         }
     }));
     sendToken(user, 201, res);
@@ -30,13 +31,19 @@ exports.RegisterUser = catchAsyncErr(async (req, res, next) => {
 
 /**Login  */
 exports.Login = catchAsyncErr(async (req, res, next) => {
-    const { emailId, passWord } = req.body;
-    if (!emailId || !passWord) {
+    const { email, password } = req.body;
+    if (!email || !password) {
         return next(new ErrorHandler("Enter email id and password", 400));
     }
+    /**check if doctor is logining */
+    const doctor = await Doctor.findOne({email,password});
+    if(doctor){
+        sendToken(doctor,200,res);
+        return 
+    }
     // const user = User.findOne({emailId}).select("+passWord");
-    const user = await User.findOne({ emailId, passWord })
-    console.log(user.name)
+    const user = await User.findOne({ email, password })
+   // console.log(user.name)
     if (!user) {
         console.log("here is error")
         return next(new ErrorHandler("Password or email id don`t match", 401));
@@ -112,7 +119,7 @@ exports.getSingelUser = chatchAsyncError(async (req, res, next) => {
 exports.updateUserRole = chatchAsyncError(async (req, res, next) => {
     const newUserData = {
         name: req.body.name,
-        emailId: req.body.emailId,
+        email: req.body.email,
         role: req.body.role,
     };
     await User.findByIdAndUpdate(req.params.id, newUserData, {
