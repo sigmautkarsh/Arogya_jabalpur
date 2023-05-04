@@ -13,7 +13,7 @@ const Doctor = require('../model/ductorModel');
  */
 
 exports.RegisterUser = catchAsyncErr(async (req, res, next) => {
-    const { name, email, number, password, bloodGroup, address, avtar } = req.body;
+    const { name, email, number, password, bloodGroup, address ,avtar } = req.body;
     const user = await (User.create({
         name,
         number,
@@ -35,13 +35,15 @@ exports.Login = catchAsyncErr(async (req, res, next) => {
     if (!email || !password) {
         return next(new ErrorHandler("Enter email id and password", 400));
     }
-    // const user = User.findOne({emailId}).select("+passWord");
-    const user1 = await Doctor.find({ email, password })
-    if (user1) {
-        sendToken(user1, 200, res);
+    /**check if doctor is logining */
+    const doctor = await Doctor.findOne({email,password});
+    if(doctor){
+        sendToken(doctor,200,res);
+        return 
     }
+    // const user = User.findOne({emailId}).select("+passWord");
     const user = await User.findOne({ email, password })
-    console.log(user.name)
+   // console.log(user.name)
     if (!user) {
         console.log("here is error")
         return next(new ErrorHandler("Password or email id don`t match", 401));
@@ -58,7 +60,7 @@ exports.Login = catchAsyncErr(async (req, res, next) => {
     //     console.log("passOrg",user.passWord ,"passUser",passWord) 
     //     return next(new ErrorHandler("invalid password or email id ",401));
     // }
-    // console.log(typeof user);
+   // console.log(typeof user);
     sendToken(user, 200, res)
 });
 
@@ -80,9 +82,9 @@ exports.getAllUser = chatchAsyncError(async (req, res, next) => {
     const userCount = users.length
     res.status(200).json({
         success: true,
-        userCount: userCount,
+        userCount : userCount,
         users,
-
+        
     });
 });
 /**Delete Account  by--Admin*/
@@ -126,6 +128,6 @@ exports.updateUserRole = chatchAsyncError(async (req, res, next) => {
         useFindAndModify: false
     })
     res.status(200).json({
-        success: true,
+        success:true,
     })
 });
