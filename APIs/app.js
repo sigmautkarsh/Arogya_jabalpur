@@ -17,6 +17,7 @@ app.use(cookieParser());
 require('dotenv').config({path:'config/config.env'});
 
 /** define various Routers here */
+/**doing some this great */
 app.use('/api/v1',userRouter);
 app.use('/api/v1',doctorsRouter);
 app.use('/api/v1',appointmentRouter);
