@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const { stringify } = require('querystring');
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
 const JWT = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
