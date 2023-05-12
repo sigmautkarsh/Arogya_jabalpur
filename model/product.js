@@ -80,12 +80,12 @@ const productSchema = mongoose.Schema({
     Product_details: {
         //Product Dimensions :  6 x 6.5 x 15 cm; 15 Grams
         //Date First Available  :  30 January 2019
-        Manufacturer: String,
+       // Manufacturer: String,
         ASIN: String,// B084BDR9GB
-        Item_model_number: String,//'87455_No SKU_38'
+      //  Item_model_number: String,//'87455_No SKU_38'
         Country_of_Origin: String,// India
         Manufacturer: String, // Micro Labs Limited
-        Item_Weight: String,// 15 g
+       // Item_Weight: String,// 15 g
         //Item Dimensions LxWxH  :  6 x 6.5 x 15 Centimeters
         Net_Quantity: String
     }//15 Count}
