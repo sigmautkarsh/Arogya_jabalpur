@@ -12,6 +12,8 @@ const Router = express.Router();
 Router.route('/doctors/registration').post(RegisterDoctor);
 Router.route('/doctors/login').post(Login);
 Router.route('/doctors/logout').get(Logout);
+/**for user */
+Router.route('/doctors').get(getAllDoctor);
 
 /**only admin  */
 Router.route('/admin/doctor').get(isAuthenticatedUser, authorizeRoles('admin'), getAllDoctor);
