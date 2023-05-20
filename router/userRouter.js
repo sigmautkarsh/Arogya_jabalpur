@@ -5,10 +5,11 @@ const { RegisterUser, Login, Logout,
     getSingelUser,
     deleteUser,
     updateUserRole } = require('../controller/userController');
+const rateLimiter = require('../util/rateLimiter')
 const Router = express.Router();
 
 Router.route('/register').post(RegisterUser);
-Router.route('/Login').post(Login);
+Router.route('/Login').post(rateLimiter,Login);
 Router.route('/logout').get(Logout);
 /**admin Routes */
 Router.route('/admin/user').get(isAuthenticatedUser,authorizeRoles('admin'),getAllUser);

@@ -85,6 +85,7 @@ exports.getAllDoctor = chatchAsyncErr(async (req, res, next) => {
 });
 /**update profile doctor */
 exports.updateProfile = chatchAsyncErr(async (req,res,next)=>{
+
 })
 /**Delete Account  by--Admin*/
 exports.deleteDoctor = chatchAsyncErr(async (req, res, next) => {
@@ -118,14 +119,16 @@ exports.updateDoctorStatus = chatchAsyncErr(async (req, res, next) => {
     const newUserData = {
         // name: req.body.name,
         // emailId: req.body.emailId,
-        applicationStatus: req.body.applicationStatus,
+        applicationStatus: req.body.data.applicationStatus,
     };
-    await Doctor.findByIdAndUpdate(req.params.id, newUserData, {
+    console.log(newUserData);
+   const doctor = await Doctor.findByIdAndUpdate(req.params.id, newUserData, {
         new: true,
         runValidators: true,
         useFindAndModify: false
     });
     res.status(200).json({
         success:true,
+        doctor
     });
 });

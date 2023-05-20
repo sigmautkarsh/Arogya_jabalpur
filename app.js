@@ -14,6 +14,8 @@ app.use(cors({
     allowedHeaders:['Content-Type', 'Authorization'],
     preflightContinue: true,
 }));
+
+
 const cookieParser =require('cookie-parser')
 app.get('/', (req, res) => {
     res.send('Hello World!')

@@ -45,7 +45,7 @@ const AppointmentSchema = new mongoose.Schema({
     mode_of_appointment: {
         type: String,
         required: [true, 'Appointment mode is required'],
-        default: 'Online',
+        default: 'Offline',
         enum: ['Online', 'Offline']
     },
     status: {
